@@ -3,9 +3,12 @@ Pipeline{
     git 
     environment {
          DB_URL = "54.160.69.79"
+         }
+         
     stages {
          stage('Build') {
              steps {
+             }
     
          }
     }
