@@ -4,4 +4,14 @@ Pipeline{
     environment {
          DB_URL = "54.160.69.79"
     }
+    
+    stages{
+        stage('BUILD'){
+            step{
+                sh '''
+                    sleep 5
+                    echo "this is for build"
+            }
+        }
+    }
 }
