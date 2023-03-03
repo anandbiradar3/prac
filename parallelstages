@@ -22,22 +22,32 @@ piepline {
                 stage('testing in windows'){
                     when {
                         branch 'master'
-                stage('STAGE-1') {
+                        }
+                        steps {
+                            sh '''
+                            echo " This is testing stage running on windows machine"
+                            '''
+                        }
                     }
-                    steps{
-                        sh "echo STEGE-2 executes if branch is master"
-                    }
-                }
-            }
-            stage('testing in cli'){
-                    when {
+                stage('testing in linux') {
+                         when {
                         branch 'master'
-                    }
-                    steps{
-                        sh "echo STEGE-2 executes if branch is master"
-                    }
+                        }
+                        steps {
+                            sh '''
+                            echo " This is testing stage running on linux machine"
+                            '''
+                            }
+                        }
+                     } 
                 }
-            }        
-        }    
-    }
-}
+
+        stage('DEPLOY') {
+                steps{
+                sh '''
+                echo "this is deploy stage"
+                '''
+            }
+        }
+    }        
+} 
