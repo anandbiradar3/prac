@@ -1,0 +1,53 @@
+piepline {
+    agent any 
+
+    parameters {
+        string defaultValue: 'main', name: 'branch', trim: true
+            }
+
+    environment {
+        BRANCH_NAME = "${branch}"
+            }
+
+    stages {
+        stage('BUILD') {
+            steps{
+                sh '''
+                echo "this is build stage"
+                '''
+            }
+        }
+        stage('TESTING'){
+              parallel {
+                stage('testing in windows'){
+                    when {
+                        branch 'main'
+                        }
+                        steps {
+                            sh '''
+                            echo " This is testing stage running on windows machine"
+                            '''
+                        }
+                    }
+                stage('testing in linux') {
+                         when {
+                        branch 'main'
+                        }
+                        steps {
+                            sh '''
+                            echo " This is testing stage running on linux machine"
+                            '''
+                        }
+                    }
+                } 
+             }
+
+        stage('DEPLOY') {
+                steps{
+                sh '''
+                echo "this is deploy stage"
+                '''
+            }
+        }
+    }        
+} 
