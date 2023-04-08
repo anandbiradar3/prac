@@ -1,0 +1,36 @@
+apiversion: v1
+   kind: Deployment
+metadata:
+  name: ip-app-deployment
+spec:
+ replicas: 4
+  template:
+     metadata:
+       labels:
+        app: ip_app
+spec:
+ containers:
+   name: ip_app
+   image: anandbiradar5/my_ubuntu
+   ports:
+    -containerPort: 80
+
+selector:
+  match labels:
+     app: ip_app
+
+---
+apiversion: v1
+   kind: Service
+metadata:
+  name: ip_app-cluster-IP
+spec:
+   type: clusterIP
+   selector:
+     app: ip_app
+    ports:
+      -name: http
+       port: 32000
+       targetport: 80
+
+
